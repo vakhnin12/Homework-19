@@ -37,7 +37,7 @@ function createChat() {
 
     const botAnswers = new Map([
         ["привет", "привет!!"], ["хай", "хай"], ["ой все", "пока"], ["до свиданья", "увидимся"], ["как дела?", "нормально"],
-        ["ghbdtn", "hello"], ["ку", "йоу"], ["нагугли", "google.com - сам нагугли"]
+        ["ghbdtn", "hello"], ["ку", "йоу"]
     ])
 
     async function chatting() {
@@ -46,12 +46,17 @@ function createChat() {
 
         async function botAnswer() {
             const value = input.value.toLowerCase();
-            if (botAnswers.has(value)) {
+            if (value === "ой все" || value === "до свиданья") {
+                botList.innerHTML = botAnswers.get(value)
+                chat.appendChild(botList)
+                botAnswers.clear()
+
+            } else if (botAnswers.has(value)) {
                 botList.innerHTML = botAnswers.get(value)
                 chat.appendChild(botList)
             } else {
-                botList.innerHTML = "Не могу ответить Вам!"
-                chat.appendChild(botList)
+                input.value = ""
+                return
             } input.value = ""
         }
         botAnswer()
